@@ -13,6 +13,16 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/:userid', function(req, res, next) {
+  User.find({userId: req.params.userid}, function(err, users) {
+    if (err) throw err;
+
+    // object of all the users
+    console.log(users);
+    res.send(users);
+  });
+});
+
 router.post('/', function(req, res, next) {
     var mike = new User({
         user_name: req.query.name,
@@ -29,7 +39,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.delete('/:userid',function(req, res, next){
-    User.remove({user_id: req.params.userid}, function(err) {
+    User.remove({userId: req.params.userid}, function(err) {
         if(error)
             return next(error);
         console.log(rreq.params.userid+'delete susscess');

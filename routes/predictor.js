@@ -14,14 +14,8 @@ var predict = function (data) {
   console.log(__function__line);
 
   var persistedModel = JSON.parse(fs.readFileSync('./utils/model.json')); // read persisted model
-  console.log(__function__line+persistedModel);
   var svm1 =  new svm.CSVC({}, persistedModel);
-  console.log(__function__line+svm1);
-
-  data.forEach(function(ex){
-    var prediction = svm1.predictSync(ex);
-    console.log('result =%d', prediction);
-  });
+  return svm1.predictSync(data);
 };
 
 router.predict = predict;

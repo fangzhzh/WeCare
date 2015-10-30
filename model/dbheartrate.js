@@ -4,7 +4,6 @@
 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/wecare');
 var Schema = mongoose.Schema;
 var HeartRateSchema = new Schema({
     userId: Number,
