@@ -3,6 +3,7 @@
  */
 
 var mongoose = require('mongoose');
+var bcrypt   = require('bcrypt-nodejs');
 mongoose.connect('mongodb://localhost/wecare');
 var Schema = mongoose.Schema;
 
@@ -12,48 +13,53 @@ var CounterSchema = new Schema({
 });
 
 var userSchema = new Schema({
-    userId: { type: Number, required: true, unique: true},
+    userId: { type: String, required: true},
     userName: String,
     nickName: String,
     gender: Number, // 0 male, 1 Female, 2 other
     carer: [ Number ],
     careGiver: [ Number ],
-    password: { type: String, required: true },
+    password: { type: String },
     createdTime: { type: Date, default: Date.now },
     updatedTime: { type: Date, default: Date.now },
-    google: {
-        name: String,
-        toke: String,
-        userid: String
+    facebook         : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
     },
-    fibit: {
-        name: String,
-        toke: String,
-        userid: String
-
+    twitter          : {
+        id           : String,
+        token        : String,
+        displayName  : String,
+        username     : String
     },
-    apple: {
-        name: String,
-        toke: String,
-        userid: String
-
+    google           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String,
+        refreshToken : String
+    },
+    runkeeper           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
     }
 });
 
 var Counter = mongoose.model('counter', CounterSchema);
 
-userSchema.pre('validate', function(next) {
-    var user = this;
-    Counter.findByIdAndUpdate({_id:'user_id'}, {$inc: { seq: 1} }, function(error, counter1)   {
-        if(error)
-            return next(error);
-        console.log(counter1);
-        if (counter1){
-            user.user_id = counter1.seq;
-            next();
-        }
-    });
-});
+// generating a hash
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
 
 var User = mongoose.model('user', userSchema);
 
