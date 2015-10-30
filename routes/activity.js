@@ -7,22 +7,51 @@ var utils = require('../utils/utils');
 var Activity = require('../model/dbactivity');
 
 router.get('/', function(req, res, next) {
+  getAllActivity(res);
+});
+
+router.get('/userid/:userid', function(req, res, next) {
   console.log(__function__line);
-  getActivity(0, res);
-  res.send(0);
+  var queryDic = {userId: parseInt(req.params.userid),dataTime:
+  {"$gte": req.query.starttime ? parseInt(req.query.starttime):new Date(0).getTime(),
+      "$lt": req.query.endtime ? parseInt(req.query.endtime) : new Date().getTime()}};
+  getActivity(queryDic, res);
 });
 
-router.get('/:userid', function(req, res, next) {
-});
+var getAllActivity = function (res) {
+  console.log(__function__line);
+  Activity.find({}, function (err, activities) {
+    if(err) {
+      console.log(err);
+      res.send("done");
+      return;
+    }
+    res.send(activities);
+  });
+};
 
-var getActivity = function (userid, res) {
-  var test = [
-    [24, 1, 2.2, 9000, 346.7], //3
-    [30, 0, 2, 5000, 46.7], //2
-    [35, 1, 0.8, 10000, 246.7], //1
-    [40, 0, 0.4, 2000, 80.3] //0
-  ];
-  return test;
+var getActivity = function (queryString, res) {
+  console.log(__function__line);
+  console.log(queryString);
+  Activity.find(queryString, function (err, activities) {
+    if(err) {
+      console.log(err);
+      console.log(__function__line);
+      if(res) res.sendStatus(500);
+      return;
+    }
+    console.log(__function__line);
+    console.log(activities);
+    if(res) res.send(activities);
+  });
+  //
+  //var test = [
+  //  [24, 1, 2.2, 9000, 346.7], //3
+  //  [30, 0, 2, 5000, 46.7], //2
+  //  [35, 1, 0.8, 10000, 246.7], //1
+  //  [40, 0, 0.4, 2000, 80.3] //0
+  //];
+  //return test;
 };
 
 
@@ -30,21 +59,22 @@ var saveActivity = function (activity, res) {
   var newActiviy = new Activity();
   newActiviy.activity = activity.activity;
   newActiviy.createTime = activity.createTime;
-  newActiviy.dateTime = activity.dateTime;
+  newActiviy.dataTime = activity.dataTime;
   newActiviy.distance = activity.distance;
   newActiviy.steps =    activity.steps;
   newActiviy.type =  activity.type;
   newActiviy.userId = activity.userId;
   newActiviy.save(function (err) {
     if(err) {
-      res.send(500);
+      if(res)      res.send(500);
       return next(err);
     }
     console.log(__function__line+ Activity +  " save success");
-    res.send(200);
+    if(res) res.send(200);
   });
 };
 
 
 router.getActivity = getActivity;
+router.saveActivity = saveActivity;
 module.exports = router;

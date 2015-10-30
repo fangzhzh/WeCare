@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 
 var ActivitySchema = new Schema({
     userId: Number,
-    dateTime:Date,
+    dataTime:Date,
     createTime: { type: Date, default: Date.now },
     steps: Number,
     distance: Number,
