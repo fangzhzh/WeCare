@@ -158,11 +158,21 @@ module.exports = function(passport) {
         process.nextTick(function() {
             
             // find and assign user from cookie.
+            var list = {},
+            if(req.headers.cookie) {
+                rc = req.headers.cookie;
+                rc && rc.split(';').forEach(function( cookie ) {
+                    var parts = cookie.split('=');
+                    list[parts.shift().trim()] = decodeURI(parts.join('='));
+                });
+            }
+
+            var cookieId = list.userId;
 
             // check if the user is already logged in
             if (!req.user) {
                 
-                User.findOne({ 'google.id' : profile.id }, function(err, user) {
+                User.findOne({ 'userId' : cookieId }, function(err, user) {
                     if (err)
                         return done(err);
 
