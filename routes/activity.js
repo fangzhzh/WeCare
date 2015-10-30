@@ -5,9 +5,12 @@ var express  =require('express');
 var router = express.Router();
 var utils = require('../utils/utils');
 var Activity = require('../model/dbactivity');
+var predict = require('./predictor');
 
 router.get('/', function(req, res, next) {
-
+  console.log(__function__line);
+  getActivity(0, res);
+  res.send(0);
 });
 
 router.get('/:userid', function(req, res, next) {
@@ -18,7 +21,20 @@ var getAllActivity = function (res) {
 };
 
 var getActivity = function (userid, res) {
+  console.log(__function__line);
+  //var test =     [24, 1, 2.2, 9000, 346.7];
 
+  var test = [
+    [24, 1, 2.2, 9000, 346.7], //3
+    [30, 0, 2, 5000, 46.7], //2
+    [35, 1, 0.8, 10000, 246.7], //1
+    [40, 0, 0.4, 2000, 80.3] //0
+  ];
+
+  console.log(__function__line);
+  var result = predict.predict(test);
+  console.log("========> result" + result);
+  console.log(__function__line);
 };
 
 
@@ -40,3 +56,4 @@ var saveActivity = function (activity, res) {
     res.send(200);
   });
 };
+module.exports = router;

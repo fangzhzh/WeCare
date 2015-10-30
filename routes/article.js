@@ -28,6 +28,16 @@ var getArticle = function (userid, res) {
 
 };
 
+var getArticle = function( queryString, callback) {
+  Article.find({"queryString":queryString}, function (err, articles) {
+    if(err) throw err;
+
+    console.log(articles);
+    callback(articles);
+
+  })
+};
+
 var saveArticle = function (article, res) {
   var newArticle = new Article();
   var jsonArticle = article;
@@ -52,5 +62,15 @@ var saveArticle = function (article, res) {
   });
 };
 
+var tag2QueryString = {
+  0: 'start exercising tips',
+  1: 'start exercising tips',
+  2: 'start exercising tips',
+  3: 'start exercising tips',
+
+};
+
+router.tag2QueryString = tag2QueryString;
+router.getArticle = getArticle;
 router.saveArticle = saveArticle;
 module.exports = router;

@@ -13,6 +13,7 @@ var signup = require('./routes/signup');
 var passport = require('passport');
 var sleep = require('./routes/sleep');
 var article = require('./routes/article');
+var activity = require('./routes/activity');
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use('/sleep', sleep);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/article', article);
+app.use('/activity', activity);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

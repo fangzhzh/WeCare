@@ -47,3 +47,14 @@ ArticleAPI.prototype.search = function(query) {
 		});
 	});
 };
+
+ArticleAPI.prototype.searchLocal = function(tag, callback) {
+  var queryString = articleRouter.tag2QueryString[tag];
+  console.log(queryString);
+  // (1) conver tag to query string
+  // (2) return all matching query string from DB
+  articleRouter.getArticle(queryString, function(article){
+    console.log("from search local");
+    console.log(article);
+  });
+};
