@@ -19,13 +19,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:userid', function(req, res, next) {
-  console.log(__function__line);
-  getRecipe({userId:req.params.userid});
+  getRecipe({userId:req.params.userid}, res);
 });
 
 
 var getRecipe = function (queryString, res) {
-  Recipe.find(queryString, function(err, recipe) {
+  console.log(__function__line);
+  Recipe.find(queryString).populate('recommendation').exec( function(err, recipe) {
     if (err) {
       console.log(err);
       res.sendStatus(500);
@@ -33,8 +33,8 @@ var getRecipe = function (queryString, res) {
     }
 
     // object of all the users
-    console.log(recipe);
-    res.send(recipe);
+    console.log(recipe.length + "'s recommendations");
+    if(res) res.send(recipe);
   });
 };
 

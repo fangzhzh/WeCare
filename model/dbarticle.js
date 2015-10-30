@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
+  type: {type:Number, default: 0},
   thumbUrl:String,
   title: String,
   link: String,

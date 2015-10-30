@@ -29,6 +29,6 @@ Object.defineProperty(global, '__function', {
 
 Object.defineProperty(global, '__function__line', {
     get: function() {
-        return __stack[1].getFunctionName()+":"+__stack[1].getLineNumber();
+        return __filename + ": " + __stack[1].getFunctionName()+":"+__stack[1].getLineNumber();
     }
 });

@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
   getAllActivity(res);
 });
 
-router.get('/userid/:userid', function(req, res, next) {
-  var queryDic = {userId: parseInt(req.params.userid),dataTime:
+router.get('/:userid', function(req, res, next) {
+  var queryDic = {userId: req.params.userid, dataTime:
   {"$gte": req.query.starttime ? parseInt(req.query.starttime):new Date(0).getTime(),
       "$lt": req.query.endtime ? parseInt(req.query.endtime) : new Date().getTime()}};
   getActivity(queryDic, function (err, activity) {
@@ -34,7 +34,7 @@ var getAllActivity = function (res) {
 var getActivity = function (queryString, callback) {
   console.log(__function__line);
   console.log(queryString);
-  Activity.find(queryString).populate('user').exec(function (err, activities) {
+  Activity.find(queryString).populate('user', 'age, gender').exec(function (err, activities) {
     if(err) {
       console.log(err);
       if(res) res.sendStatus(500);

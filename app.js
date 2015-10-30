@@ -41,7 +41,7 @@ app.use('/login', login);
 app.use('/signup', signup);
 app.use('/article', article);
 app.use('/activity', activity);
-app.use('/recipe', recipe);
+app.use('/recommend', recipe);
 
 var agenda = new Agenda({db: {address: "mongodb://localhost/wecare"}});
 agenda.define('fetch data', function(job, done) {

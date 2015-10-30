@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 
 var RecipeScheme = new Schema( {
     userId: String,
-    recommendation: String,
+    recommendation: {type: Schema.ObjectId, ref:'article'},
     sourceType: Number // system, user, developer
 });
 
