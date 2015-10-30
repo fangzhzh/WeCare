@@ -16,8 +16,8 @@ var userSchema = new Schema({
     userName: String,
     nickName: String,
     gender: Number, // 0 male, 1 Female, 2 other
-    carer: [ Number ],
-    careGiver: [ Number ],
+    carer: [ {type: Schema.ObjectId, ref:'user'}  ],
+    careGiver: [ {type: Schema.ObjectId, ref:'user'}  ],
     password: { type: String },
     createdTime: { type: Date, default: Date.now },
     updatedTime: { type: Date, default: Date.now },

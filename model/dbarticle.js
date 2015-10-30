@@ -8,7 +8,7 @@ var ArticleSchema = new Schema({
   type: {type:Number, default: 0},
   thumbUrl:String,
   title: String,
-  link: String,
+  link: {type:String,unique:true},
   summary: String,
   displayLink: String,
   queryString: String

@@ -57,7 +57,7 @@ var getActivity = function (queryString, callback) {
 
 
 var saveActivity = function (activity, res) {
-  console.log(activity);
+  console.log(__function__line);
 
   Activity.findOneAndUpdate({userId:activity.userId, dataTime:activity.dataTime},
       activity,
