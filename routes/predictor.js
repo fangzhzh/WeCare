@@ -8,8 +8,6 @@ var svm = require('node-svm');
 var fs = require('fs');
 
 var predict = function (data) {
-  console.log(__function__line);
-
   var persistedModel = JSON.parse(fs.readFileSync('./utils/model.json')); // read persisted model
   var svm1 =  new svm.CSVC({}, persistedModel);
   return svm1.predictSync(data);

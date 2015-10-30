@@ -39,13 +39,11 @@ var getRecipe = function (queryString, res) {
 };
 
 var saveRecipe = function (recipe, res) {
-  console.log(__function__line);
   var newRecipe = new Recipe();
-  console.log(__function__line);
   newRecipe.userId = recipe.userid;
   newRecipe.recommendation = recipe.recommendation;
   newRecipe.dateTime = recipe.dateTime;
-  console.log(__function__line);
+
   newRecipe.save(function (err) {
     if(err) {
       if(res)      res.send(500);
@@ -55,7 +53,7 @@ var saveRecipe = function (recipe, res) {
     console.log(__function__line+ newRecipe +  " save success");
     if(res)  res.send(200);
   });
-  console.log(__function__line);
+
 };
 
 router.getRecipe = getRecipe;

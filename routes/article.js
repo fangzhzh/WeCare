@@ -18,9 +18,7 @@ var getArticle = function( queryString, callback) {
   Article.find({"queryString":queryString}, function (err, articles) {
     if(err) throw err;
 
-    console.log(articles);
     callback(articles);
-
   })
 };
 

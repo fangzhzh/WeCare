@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/userid/:userid', function(req, res, next) {
-  console.log(__function__line);
   var queryDic = {userId: parseInt(req.params.userid),dataTime:
   {"$gte": req.query.starttime ? parseInt(req.query.starttime):new Date(0).getTime(),
       "$lt": req.query.endtime ? parseInt(req.query.endtime) : new Date().getTime()}};
@@ -43,7 +42,6 @@ var getActivity = function (queryString, callback) {
     }
 
     console.log(__function__line);
-    console.log(activities);
     if(callback) callback(null, activities);
   });
 

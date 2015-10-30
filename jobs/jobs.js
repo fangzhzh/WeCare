@@ -10,6 +10,9 @@ var article = require('../routes/article');
 var recipe = require('../routes/recipe');
 var fitness = require('../integration/googleFit.js');
 var User = require('../model/dbuser');
+var articleRecommend = require('../recommendation/article.js');
+var articleAPI = new articleRecommend();
+
 
 var fitnessAPI = new fitness();
 
@@ -22,17 +25,22 @@ var makeRecipe = function (userid) {
 
     activities.forEach(function(ex) {
       var date = [
-        ex.user.age?30:parseInt(ex.user.age), // age
-        ex.user.gender?1:parseInt(ex.user.gender), // gender
-        ex.activity?0.8:parseFloat(ex.activity),
-          ex.steps?0:parseInt(ex.steps),
-          ex.calorie?0:parseFloat(ex.calorie)
+        ex.user.age?parseInt(ex.user.age):30, // age
+        ex.user.gender?parseInt(ex.user.gender):1, // gender
+        ex.activity?parseFloat(ex.activity):0.8,
+          ex.steps?parseInt(ex.steps):0,
+          ex.calorie?parseFloat(ex.calorie):0
       ];
       console.log("=========> date"+date);
       var result = predict.predict(date);
       console.log("========> result" + result);
       var queryString = article.tag2QueryString[result];
       article.getArticle(queryString, function(articles){
+        if(articles.length <= 0) {
+          console.log("article size "+articles.size);
+          articleAPI.search(queryString);
+          return;
+        }
         articles.forEach(function(article){
           recipe.saveRecipe({"userid":userid, "recommendation":article._id, dateTime: Date.now});
           console.log(article);

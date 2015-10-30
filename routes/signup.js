@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 require('../auth/passport')(passport);
-//var article = require('../recommendation/article.js');
-//var articleAPI = new article();
 var fitness = require('../integration/googleFit.js');
 var fitnessAPI = new fitness();
 var User = require('../model/dbuser');

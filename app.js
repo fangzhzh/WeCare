@@ -42,18 +42,17 @@ app.use('/signup', signup);
 app.use('/article', article);
 app.use('/activity', activity);
 app.use('/recipe', recipe);
-jobs.makeRecipe("fangzhzh@gmail.com");
 
 var agenda = new Agenda({db: {address: "mongodb://localhost/wecare"}});
 agenda.define('fetch data', function(job, done) {
   console.log(1);
-  // jobs.fetchGoogleFit("fangzhzh@gmail.com");
+//  jobs.fetchGoogleFit("fangzhzh@gmail.com");
   done(); /// <------- MUST!!!
 });
 
 agenda.define('make recipe', function (job, done) {
   console.log(2);
-  // jobs.makeRecipe("fangzhzh@gmail.com");
+//  jobs.makeRecipe("fangzhzh@gmail.com");
   done(); /// <------- MUST!!!
 });
 
