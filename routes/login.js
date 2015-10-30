@@ -21,15 +21,9 @@ router.get('/google', passport.authenticate('google', { scope : ['profile', 'ema
 
 // the callback after google has authorized the user
 router.get('/google/callback',
-	passport.authorize('google'),
-	function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    console.log(res);
-}, function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    console.log(res);
-});
+	passport.authenticate('google', {
+	    successRedirect : '/profile',
+	    failureRedirect : '/'
+}));
 
 module.exports = router;

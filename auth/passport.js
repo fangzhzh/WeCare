@@ -167,9 +167,7 @@ module.exports = function(passport) {
                 });
             }
 
-            var cookieId = list.userId;
-            console.log(list);
-            console.log(cookieId);
+            var cookieId = list.userid;           
             // check if the user is already logged in
             if (!req.user) {
                 
@@ -197,20 +195,8 @@ module.exports = function(passport) {
 
                         return done(null, user);
                     } else {
-                        var newUser          = new User();
-
-                        newUser.google.id    = profile.id;
-                        newUser.google.token = token;
-                        newUser.google.name  = profile.displayName;
-                        newUser.google.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
-
-                        newUser.save(function(err) {
-                            if (err) {
-                                return done(err);
-                            }
-                                
-                            return done(null, newUser);
-                        });
+                        var newUser = new User();
+                        return done(null, newUser);
                     }
                 });
 
