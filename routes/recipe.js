@@ -20,13 +20,23 @@ router.get('/', function(req, res, next) {
 
 router.get('/:userid', function(req, res, next) {
   console.log(__function__line);
-  Recipe.findOne({userId:req.params.userid}, function(err, recipe) {
-    if (err) throw err;
+  getRecipe({userId:req.params.userid});
+});
+
+
+var getRecipe = function (queryString, res) {
+  Recipe.find(queryString, function(err, recipe) {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      throw err;
+    }
+
     // object of all the users
     console.log(recipe);
     res.send(recipe);
   });
-});
+};
 
 var saveRecipe = function (recipe, res) {
   console.log(__function__line);
@@ -48,6 +58,6 @@ var saveRecipe = function (recipe, res) {
   console.log(__function__line);
 };
 
-
+router.getRecipe = getRecipe;
 router.saveRecipe = saveRecipe;
 module.exports = router;

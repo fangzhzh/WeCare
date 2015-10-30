@@ -14,17 +14,6 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/:userid', function(req, res, next) {
-});
-
-var getAllArticle = function (res) {
-
-};
-
-var getArticle = function (userid, res) {
-
-};
-
 var getArticle = function( queryString, callback) {
   Article.find({"queryString":queryString}, function (err, articles) {
     if(err) throw err;

@@ -7,9 +7,6 @@ var utils = require('../utils/utils');
 var svm = require('node-svm');
 var fs = require('fs');
 
-
-
-
 var predict = function (data) {
   console.log(__function__line);
 
