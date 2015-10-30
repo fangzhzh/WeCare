@@ -6,6 +6,7 @@ var configAuth = require('../auth/auth'); // use this one for testing
 var articleRouter = require('../routes/article');
 var activityRouter = require('../routes/activity');
 
+
 module.exports = FitnessAPI;
 
 var fitness = google.fitness('v1');
@@ -49,7 +50,9 @@ FitnessAPI.prototype.fetchData = function(user, date) {
             resp.point.forEach(function(pointData) {
               count = count + pointData.value[0].intVal;
             });
-            activityRouter.saveActivity({userId: user.userId,
+            activityRouter.saveActivity({
+              user: user._id,
+              userId: user.userId,
               dataTime: start.getTime(),
               steps:count
             });
@@ -70,7 +73,9 @@ FitnessAPI.prototype.fetchData = function(user, date) {
             resp.point.forEach(function(pointData) {
               count = count + pointData.value[0].fpVal;
             });
-            activityRouter.saveActivity({userId: user.userId,
+            activityRouter.saveActivity({
+              user: user._id,
+              userId: user.userId,
               dataTime: start.getTime(),
               calorie:count
             });

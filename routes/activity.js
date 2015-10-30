@@ -15,7 +15,9 @@ router.get('/userid/:userid', function(req, res, next) {
   var queryDic = {userId: parseInt(req.params.userid),dataTime:
   {"$gte": req.query.starttime ? parseInt(req.query.starttime):new Date(0).getTime(),
       "$lt": req.query.endtime ? parseInt(req.query.endtime) : new Date().getTime()}};
-  getActivity(queryDic, res);
+  getActivity(queryDic, function (err, activity) {
+    res.send(activity);
+  });
 });
 
 var getAllActivity = function (res) {
@@ -30,20 +32,21 @@ var getAllActivity = function (res) {
   });
 };
 
-var getActivity = function (queryString, res) {
+var getActivity = function (queryString, callback) {
   console.log(__function__line);
   console.log(queryString);
-  Activity.find(queryString, function (err, activities) {
+  Activity.find(queryString).populate('user').exec(function (err, activities) {
     if(err) {
       console.log(err);
-      console.log(__function__line);
       if(res) res.sendStatus(500);
-      return;
+      callback(err);
     }
+
     console.log(__function__line);
     console.log(activities);
-    if(res) res.send(activities);
+    if(callback) callback(null, activities);
   });
+
   //
   //var test = [
   //  [24, 1, 2.2, 9000, 346.7], //3
