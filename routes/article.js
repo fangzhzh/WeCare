@@ -9,10 +9,7 @@ var Article = require('../model/dbarticle');
 
 router.get('/', function(req, res, next) {
 	Article.find({}, function(err, users) {
-        if (err) throw err;
-
-        // object of all the users
-        console.log(users);
+        if (err) throw err;            
         res.send(users);
     });
 });

@@ -4,9 +4,20 @@ var passport = require('passport');
 require('../auth/passport')(passport);
 //var article = require('../recommendation/article.js');
 //var articleAPI = new article();
+var fitness = require('../integration/googleFit.js');
+var fitnessAPI = new fitness();
+var User = require('../model/dbuser');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	User.findOne({userId:'amulyakhare@gmail.com'}, function(err, user) {
+        if (err) throw err;
+        
+        fitnessAPI.fetchData(user);
+
+        return user;
+    });
+	
 	res.render('signup', { title: 'Login' });
 });
 
