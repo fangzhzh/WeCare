@@ -42,8 +42,7 @@ var makeRecipe = function (userid) {
           return;
         }
         articles.forEach(function(article){
-          recipe.saveRecipe({"userid":userid, "recommendation":article._id, dateTime: Date.now});
-          console.log(article);
+          recipe.saveRecipe({"userid":userid, "recommendation":article._id, dataTime: Date.now});
         });
       });
     });

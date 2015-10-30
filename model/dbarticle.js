@@ -14,5 +14,6 @@ var ArticleSchema = new Schema({
   queryString: String
 });
 
+ActivitySchema.index({ queryString: 1, link: 1}, { unique: true });
 var Article = mongoose.model('article', ArticleSchema);
 module.exports= Article;

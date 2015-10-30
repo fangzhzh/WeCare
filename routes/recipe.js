@@ -4,7 +4,6 @@
 
 var express  =require('express');
 var router = express.Router();
-var utils = require('../utils/utils');
 var Recipe = require('../model/dbrecipe');
 
 
@@ -22,7 +21,6 @@ router.get('/:userid', function(req, res, next) {
   getRecipe({userId:req.params.userid}, res);
 });
 
-
 var getRecipe = function (queryString, res) {
   console.log(__function__line);
   Recipe.find(queryString).populate('recommendation').exec( function(err, recipe) {
@@ -39,20 +37,31 @@ var getRecipe = function (queryString, res) {
 };
 
 var saveRecipe = function (recipe, res) {
-  var newRecipe = new Recipe();
-  newRecipe.userId = recipe.userid;
-  newRecipe.recommendation = recipe.recommendation;
-  newRecipe.dateTime = recipe.dateTime;
+  Recipe.findOneAndUpdate({userId:recipe.userid,
+    recommendation:recipe.recommendation,
+    dataTime:recipe.dataTime
+    },
+      recipe,
+      {upsert:true},
+      function (err, object) {
+        if(err) {
+          if(res)      res.send(500);
+          return "";
+        }
+        if(res) res.send(200);
+      }
+  );
 
-  newRecipe.save(function (err) {
-    if(err) {
-      if(res)      res.send(500);
-      console.log(err);
-      return err;
-    }
-    console.log(__function__line+ newRecipe +  " save success");
-    if(res)  res.send(200);
-  });
+  //
+  //newRecipe.save(function (err) {
+  //  if(err) {
+  //    if(res)      res.send(500);
+  //    console.log(err);
+  //    return err;
+  //  }
+  //  console.log(__function__line+ newRecipe +  " save success");
+  //  if(res)  res.send(200);
+  //});
 
 };
 
