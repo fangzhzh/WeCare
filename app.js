@@ -4,12 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/wecare');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
 var passport = require('passport');
+var sleep = require('./routes/sleep');
 
 var app = express();
 
@@ -29,6 +31,7 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/sleep', sleep);
 app.use('/login', login);
 app.use('/signup', signup);
 

@@ -2,7 +2,6 @@
  * Created by zhenfangzhang on 30/10/15.
  */
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/wecare');
 var Schema = mongoose.Schema;
 
 var SleepSchema = new Schema({
@@ -14,4 +13,5 @@ var SleepSchema = new Schema({
 });
 
 var Sleep = mongoose.model('sleep', SleepSchema);
+
 module.exports= Sleep;

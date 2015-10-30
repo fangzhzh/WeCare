@@ -3,8 +3,6 @@
  */
 
 var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
-mongoose.connect('mongodb://localhost/wecare');
 var Schema = mongoose.Schema;
 
 var CounterSchema = new Schema({

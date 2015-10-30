@@ -8,8 +8,7 @@ var Schema = mongoose.Schema;
 var RecommendationSchema = new Schema({
     message_id: Number,
     type: Number, // article = 0, place = 1, nudge = 2
-    scheduledTime: { type: Date, default: Date.now },
-    sentTime: { type: Date, default: Date.now }
+    content: String,
 });
 
 var Recommend = mongoose.model('recommendation', RecommendationSchema);

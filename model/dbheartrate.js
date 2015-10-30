@@ -6,9 +6,13 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/wecare');
 var Schema = mongoose.Schema;
-var RecipeScheme = new Schema( {
+var HeartRateSchema = new Schema({
     userId: Number,
-        recommendation: Number,
-        sourceType: Number // system, user, developer
+    dataTime:  Date,
+    createTime: { type: Date, default: Date.now },
+    heartRate: Number
 });
+var HeartRate = mongoose.model('heartrate', HeartRateSchema);
+module.exports= HeartRate;
+
 
