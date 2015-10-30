@@ -56,22 +56,19 @@ var getActivity = function (queryString, res) {
 
 
 var saveActivity = function (activity, res) {
-  var newActiviy = new Activity();
-  newActiviy.activity = activity.activity;
-  newActiviy.createTime = activity.createTime;
-  newActiviy.dataTime = activity.dataTime;
-  newActiviy.distance = activity.distance;
-  newActiviy.steps =    activity.steps;
-  newActiviy.type =  activity.type;
-  newActiviy.userId = activity.userId;
-  newActiviy.save(function (err) {
-    if(err) {
-      if(res)      res.send(500);
-      return next(err);
-    }
-    console.log(__function__line+ Activity +  " save success");
-    if(res) res.send(200);
-  });
+  console.log(activity);
+
+  Activity.findOneAndUpdate({userId:activity.userId, dataTime:activity.dataTime},
+      activity,
+      {upsert:true},
+      function (err, object) {
+        if(err) {
+          if(res)      res.send(500);
+          return "";
+        }
+        if(res) res.send(200);
+      }
+  );
 };
 
 

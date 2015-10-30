@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var SleepSchema = new Schema({
-    userId: Number,
+    userId: String,
     dataTime: Date,
     createTime: { type: Date, default: Date.now },
     sleepTime: Number,

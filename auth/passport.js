@@ -171,7 +171,7 @@ module.exports = function(passport) {
             // check if the user is already logged in
             if (!req.user) {
                 
-                User.findOne({ 'userId' : 'amulyakhare@gmail.com' }, function(err, user) {
+                User.findOne({ 'userId' : 'fangzhzh@gmail.com' }, function(err, user) {
                     if (err)
                         return done(err);
                     console.log(user);

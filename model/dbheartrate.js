@@ -6,7 +6,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var HeartRateSchema = new Schema({
-    userId: Number,
+    userId: String,
     dataTime:  Date,
     createTime: { type: Date, default: Date.now },
     heartRate: Number
