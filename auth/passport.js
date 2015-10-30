@@ -156,9 +156,9 @@ module.exports = function(passport) {
 
         // asynchronous
         process.nextTick(function() {
-            console.log('------>' , "HELLLORRRREWEEE!!!!");
-            console.log(req.headers.cookie);
-            console.log('------>' , req.user);
+            
+            // find and assign user from cookie.
+
             // check if the user is already logged in
             if (!req.user) {
                 
