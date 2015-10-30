@@ -8,7 +8,13 @@ var Article = require('../model/dbarticle');
 
 
 router.get('/', function(req, res, next) {
+	Article.find({}, function(err, users) {
+        if (err) throw err;
 
+        // object of all the users
+        console.log(users);
+        res.send(users);
+    });
 });
 
 router.get('/:userid', function(req, res, next) {
@@ -46,5 +52,5 @@ var saveArticle = function (article, res) {
   });
 };
 
-module.saveArticle = saveArticle;
+router.saveArticle = saveArticle;
 module.exports = router;

@@ -18,7 +18,7 @@ module.exports = {
     'googleAuth' : {
         'clientID'         : '764657221684-6ugvp741pa6uhlrd2fs0rsaqp02c9efo.apps.googleusercontent.com',
         'clientSecret'     : 'bq9vzbX2nNjAJ-22sKa9D2iM',
-        'callbackURL'      : 'http://localhost:8080/auth/google/callback'
+        'callbackURL'      : 'http://localhost/login/google/callback'
     },
 
     'runkeeperAuth' : {

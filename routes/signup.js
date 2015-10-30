@@ -2,13 +2,11 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 require('../auth/passport')(passport);
-var article = require('../recommendation/article.js');
-var articleAPI = new article();
+//var article = require('../recommendation/article.js');
+//var articleAPI = new article();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	console.log("-----> GET");
-	articleAPI.search('start exercising tips');
 	res.render('signup', { title: 'Login' });
 });
 

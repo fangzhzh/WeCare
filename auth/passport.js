@@ -90,8 +90,7 @@ module.exports = function(passport) {
                     if (user) {
                         return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
                     } else {
-
-                        console.log("------> HEHRE!");
+                        
                         // create the user
                         var newUser            = new User();
 
@@ -103,7 +102,7 @@ module.exports = function(passport) {
                                 console.log(err);
                                 return done(err);
                             }
-                            console.log("------> HEHRE2222!");
+                            
                             return done(null, newUser);
                         });
                     }
@@ -157,10 +156,12 @@ module.exports = function(passport) {
 
         // asynchronous
         process.nextTick(function() {
-
+            console.log('------>' , "HELLLORRRREWEEE!!!!");
+            console.log(req.headers.cookie);
+            console.log('------>' , req.user);
             // check if the user is already logged in
             if (!req.user) {
-
+                
                 User.findOne({ 'google.id' : profile.id }, function(err, user) {
                     if (err)
                         return done(err);
@@ -191,8 +192,10 @@ module.exports = function(passport) {
                         newUser.google.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
 
                         newUser.save(function(err) {
-                            if (err)
+                            if (err) {
+                                //console.log(err);
                                 return done(err);
+                            }
                                 
                             return done(null, newUser);
                         });
@@ -200,6 +203,7 @@ module.exports = function(passport) {
                 });
 
             } else {
+                console.log('2- HERE!!!');
                 // user already exists and is logged in, we have to link accounts
                 var user               = req.user; // pull the user out of the session
 

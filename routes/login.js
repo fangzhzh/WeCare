@@ -17,10 +17,19 @@ router.post('/',
 });
 
 // process the signup form
-router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile', // redirect to the secure profile section
-    failureRedirect : '/signup', // redirect back to the signup page if there is an error
-    failureFlash : true // allow flash messages
-}));
+router.get('/google', passport.authenticate('google', { scope : ['profile', 'email', 'https://www.googleapis.com/auth/fitness.body.read', 'https://www.googleapis.com/auth/fitness.activity.read', 'https://www.googleapis.com/auth/fitness.location.read'] }));
+
+// the callback after google has authorized the user
+router.get('/google/callback',
+	passport.authorize('google'),
+	function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    console.log(res);
+}, function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    console.log(res);
+});
 
 module.exports = router;
