@@ -44,7 +44,7 @@ router.delete('/:userid',function(req, res, next){
             return next(err);
         console.log(req.params.userid+'delete susscess');
         res.send(req.params.userid+'delete susscess')
-    })});
+})});
 
 var getAllSleep = function() {
     console.log(__function__line);
@@ -68,6 +68,6 @@ var saveSleep = function(sleep) {
     });
 };
 
-router.saveSleep = saveSleep
+router.saveSleep = saveSleep;
 
 module.exports = router;
