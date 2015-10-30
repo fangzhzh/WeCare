@@ -34,7 +34,7 @@ var getAllActivity = function (res) {
 var getActivity = function (queryString, callback) {
   console.log(__function__line);
   console.log(queryString);
-  Activity.find(queryString).populate('user', 'age, gender').exec(function (err, activities) {
+  Activity.find(queryString).sort({dataTime:1}).populate('user', 'age, gender').exec(function (err, activities) {
     if(err) {
       console.log(err);
       if(res) res.sendStatus(500);
