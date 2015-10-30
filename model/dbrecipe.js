@@ -7,9 +7,10 @@ var Schema = mongoose.Schema;
 
 var RecipeScheme = new Schema( {
     userId: Number,
-    recommendation: Number,
+    recommendation: String,
     sourceType: Number // system, user, developer
 });
 
+RecipeScheme.index({ recommendation: 1, userId: 1}, { unique: true });
 var Recipe = mongoose.model('recipe', RecipeScheme);
 module.exports= Recipe;

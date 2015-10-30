@@ -10,25 +10,42 @@ var Recipe = require('../model/dbrecipe');
 
 router.get('/', function(req, res, next) {
   console.log(__function__line);
-  res.send(0);
+  Recipe.find({}, function(err, recipes) {
+    if (err) throw err;
+    // object of all the users
+    console.log(recipes);
+    res.send(recipes);
+  });
 });
 
 router.get('/:userid', function(req, res, next) {
+  console.log(__function__line);
+  Recipe.findOne({userId:req.params.userid}, function(err, recipe) {
+    if (err) throw err;
+    // object of all the users
+    console.log(recipe);
+    res.send(recipe);
+  });
 });
 
 var saveRecipe = function (recipe, res) {
+  console.log(__function__line);
   var newRecipe = new Recipe();
-  newRecipe.userId = recipe.userId;
+  console.log(__function__line);
+  newRecipe.userId = recipe.userid;
   newRecipe.recommendation = recipe.recommendation;
   newRecipe.dateTime = recipe.dateTime;
+  console.log(__function__line);
   newRecipe.save(function (err) {
     if(err) {
-      res.send(500);
-      return next(err);
+      if(res)      res.send(500);
+      console.log(err);
+      return err;
     }
     console.log(__function__line+ newRecipe +  " save success");
-    res.send(200);
+    if(res)  res.send(200);
   });
+  console.log(__function__line);
 };
 
 
