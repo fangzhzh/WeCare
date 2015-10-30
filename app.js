@@ -40,7 +40,7 @@ app.use('/signup', signup);
 app.use('/article', article);
 app.use('/activity', activity);
 app.use('/job', job);
-job.makeRecipe(0);
+//job.makeRecipe(0);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
