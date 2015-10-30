@@ -8,7 +8,7 @@ var articleAPI = new article();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	console.log("-----> GET");
-	articleAPI.search();
+	articleAPI.search('start exercising tips');
 	res.render('signup', { title: 'Login' });
 });
 

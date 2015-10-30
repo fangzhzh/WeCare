@@ -24,7 +24,7 @@ var getArticle = function (userid, res) {
 
 var saveArticle = function (article, res) {
   var newArticle = new Article();
-  var jsonArticle = JSON.parse(article);
+  var jsonArticle = article;
   newArticle.title = jsonArticle.title;
   newArticle.displayLink = jsonArticle.displayLink;
   newArticle.link = jsonArticle.link;
@@ -34,11 +34,15 @@ var saveArticle = function (article, res) {
 
   newArticle.save(function (err) {
     if(err) {
-      res.send(500);
+      if(res) {
+        res.send(500);
+      }
       return next(err);
     }
     console.log(__function__line+ article +  " save success");
-    res.send(200);
+    if(res) {
+      res.send(200);
+	}
   });
 };
 

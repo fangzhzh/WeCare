@@ -3,6 +3,7 @@ var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 // load the auth variables
 var configAuth = require('../auth/auth'); // use this one for testing
+var articleRouter = require('../routes/article');
 
 module.exports = ArticleAPI;
 
@@ -26,5 +27,19 @@ ArticleAPI.prototype.search = function(query) {
 
 		// Do whatever you need with the API's reply.
 		console.log(reply);
+		reply.items.forEach(function(entry) {
+			var imageLink = "";
+			if(entry.image) {
+				imageLink = entry.image.thumbnailLink;
+			}
+			articleRouter.saveArticle({
+				thumbUrl: imageLink,
+				title: entry.title,
+				summary: entry.snippet,
+				link: entry.link,
+				displayLink: entry.displayLink,
+				queryString: query
+			});
+		});
 	});
 };
