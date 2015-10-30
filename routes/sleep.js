@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
+var utils = require('../utils/utils');
 var Sleep = require('../model/dbsleep');
 var faker = require('faker');
 
@@ -12,7 +13,8 @@ router.get('/', function(req, res, next) {
         if (err) throw err;
 
         // object of all the users
-        console.log(sleeps);
+        console.log(__function +":"+__line);
+        getAllSleep();
         res.send(sleeps);
     });
 });
@@ -44,11 +46,12 @@ router.delete('/:userid',function(req, res, next){
         res.send(req.params.userid+'delete susscess')
     })});
 
-router.getAllSleep = function() {
-
+var getAllSleep = function() {
+    console.log(__function__line);
 };
 
 var saveSleep = function(sleep) {
+
     var newSleep = new Sleep({
 
     });
