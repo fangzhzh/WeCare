@@ -36,7 +36,7 @@ var saveArticle = function (article, res) {
       if(res) {
         res.send(500);
       }
-      return next(err);
+      //return next(err);
     }
     console.log(__function__line+ article +  " save success");
     if(res) {
@@ -47,13 +47,20 @@ var saveArticle = function (article, res) {
 
 var tag2QueryString = {
   0: 'start exercising tips',
-  1: 'start exercising tips',
-  2: 'start exercising tips',
-  3: 'start exercising tips',
+  1: 'short workout plan',
+  2: 'best beginners workout',
+  3: 'pro exercise advice',
+};
 
+var shopeeTag2QueryString = {
+  0: 'health',
+  1: 'gym',
+  2: 'backpack',
+  3: 'run',
 };
 
 router.tag2QueryString = tag2QueryString;
+router.shopeeTag2QueryString = tag2QueryString;
 router.getArticle = getArticle;
 router.saveArticle = saveArticle;
 module.exports = router;

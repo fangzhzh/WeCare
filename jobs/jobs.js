@@ -34,6 +34,23 @@ var makeRecipe = function (userid) {
       console.log("=========> date"+date);
       var result = predict.predict(date);
       console.log("========> result" + result);
+      
+      var hashTag = article.shopeeTag2QueryString[result];
+      article.getArticle(queryString, function(articles){
+        if(articles.length <= 0) {
+          article.saveArticle({
+            thumbUrl: 'http://shopee.sg/static/images/pc/en/topBannerBg.png',
+            title: '#'+hashTag,
+            summary: '',
+            link: 'http://mall.shopee.sg/category-item/?is_hashtag=1&search=%23' + hashTag,
+            displayLink: "Shopee Recommendation",
+            queryString: hashTag
+          });
+          return;
+        }
+        recipe.saveRecipe({"userid":userid, "recommendation":articles[0]._id, dataTime: Date.now()});
+      });
+
       var queryString = article.tag2QueryString[result];
       article.getArticle(queryString, function(articles){
         if(articles.length <= 0) {
@@ -42,12 +59,11 @@ var makeRecipe = function (userid) {
           return;
         }
         articles.forEach(function(article){
-          recipe.saveRecipe({"userid":userid, "recommendation":article._id, dataTime: Date.now});
+          recipe.saveRecipe({"userid":userid, "recommendation":article._id, dataTime: Date.now()});
         });
       });
     });
   });
-
 };
 
 var fetchGoogleFit = function (userid) {

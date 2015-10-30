@@ -5,6 +5,8 @@ var RunKeeperStrategy = require('passport-runkeeper').Strategy;
 
 // load up the user model
 var User       = require('../model/dbuser');
+var Agenda = require('agenda');
+var agenda = new Agenda({db: {address: "mongodb://localhost/wecare"}});
 
 // load the auth variables
 var configAuth = require('./auth'); // use this one for testing
@@ -171,7 +173,7 @@ module.exports = function(passport) {
             // check if the user is already logged in
             if (!req.user) {
                 
-                User.findOne({ 'userId' : 'fangzhzh@gmail.com' }, function(err, user) {
+                User.findOne({ 'userId' : cookieId }, function(err, user) {
                     if (err)
                         return done(err);
                     console.log(user);
@@ -188,6 +190,18 @@ module.exports = function(passport) {
                                 console.log(err);
                                 return done(err);
                             }
+
+                            agenda.define('fetch data' + user.userId, function(job, done) {
+                              console.log(1);
+                                jobs.fetchGoogleFit(user.userId);
+                              done(); /// <------- MUST!!!
+                            });
+
+                            agenda.define('make recipe' + user.userId, function (job, done) {
+                              console.log(2);
+                                jobs.makeRecipe(user.userId);
+                              done(); /// <------- MUST!!!
+                            });
                                 
                             return done(null, user);
                         });

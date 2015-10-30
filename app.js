@@ -54,13 +54,13 @@ agenda.define('fetch data', function(job, done) {
 
 agenda.define('make recipe', function (job, done) {
   console.log(2);
-//  jobs.makeRecipe("fangzhzh@gmail.com");
+  //jobs.makeRecipe("fangzhzh@gmail.com");
   done(); /// <------- MUST!!!
 });
 
 agenda.on('ready', function() {
-  agenda.every('5 seconds', 'fetch data');
-  agenda.every('10 seconds', 'make recipe');
+  agenda.every('15 minutes', 'fetch data');
+  agenda.every('10 minutes', 'make recipe');
   agenda.start();
 });
 
