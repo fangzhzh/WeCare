@@ -168,14 +168,15 @@ module.exports = function(passport) {
             }
 
             var cookieId = list.userId;
-
+            console.log(list);
+            console.log(cookieId);
             // check if the user is already logged in
             if (!req.user) {
                 
                 User.findOne({ 'userId' : cookieId }, function(err, user) {
                     if (err)
                         return done(err);
-
+                    console.log(user);
                     if (user) {
 
                         // if there is a user id already but no token (user was linked at one point and then removed)
@@ -185,8 +186,10 @@ module.exports = function(passport) {
                             user.google.email = (profile.emails[0].value || '').toLowerCase(); // pull the first email
 
                             user.save(function(err) {
-                                if (err)
+                                if (err) {
+                                    console.log(err);
                                     return done(err);
+                                }
                                     
                                 return done(null, user);
                             });
@@ -203,7 +206,6 @@ module.exports = function(passport) {
 
                         newUser.save(function(err) {
                             if (err) {
-                                //console.log(err);
                                 return done(err);
                             }
                                 
