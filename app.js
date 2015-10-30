@@ -16,6 +16,7 @@ var article = require('./routes/article');
 var activity = require('./routes/activity');
 var recipe = require('./routes/recipe');
 var job = require('./jobs/makerecipe');
+var Agenda = require('agenda');
 
 var app = express();
 
@@ -43,6 +44,18 @@ app.use('/activity', activity);
 app.use('/job', job);
 app.use('/recipe', recipe);
 //job.makeRecipe(0);
+
+var agenda = new Agenda({db: {address: "mongodb://localhost/wecare"}});
+agenda.define('delete old users', function(job, done) {
+  console.log(1);
+  done(); /// <------- MUST!!!
+});
+
+agenda.on('ready', function() {
+ console.log(222);
+  agenda.every('3 seconds', 'delete old users');
+  agenda.start();
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
