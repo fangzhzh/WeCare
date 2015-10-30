@@ -15,5 +15,5 @@ var HealthBoxSchema = new Schema({
     sleepQuality: Number // 0 low 1 average 2 above
 });
 
-var HealthBox = mongoose.mode('healthbox');
+var HealthBox = mongoose.model('healthbox', HealthBoxSchema);
 module.exports = HealthBox;

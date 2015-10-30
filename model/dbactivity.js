@@ -14,7 +14,7 @@ var ActivitySchema = new Schema({
     activity: Number
 });
 
-var Activity = mongoose.model('user', ActivitySchema);
+var Activity = mongoose.model('activity', ActivitySchema);
 
 // make this available to our users in our Node applications
 module.exports = Activity;

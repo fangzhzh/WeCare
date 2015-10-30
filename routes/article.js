@@ -36,7 +36,7 @@ var saveArticle = function (article, res) {
   newArticle.link = jsonArticle.link;
   newArticle.queryString = jsonArticle.queryString;
   newArticle.thumbUrl = jsonArticle.thumbUrl;
-
+  newArticle.summary = jsonArticle.sumary;
 
   newArticle.save(function (err) {
     if(err) {
