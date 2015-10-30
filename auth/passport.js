@@ -202,6 +202,13 @@ module.exports = function(passport) {
                                 jobs.makeRecipe(user.userId);
                               done(); /// <------- MUST!!!
                             });
+
+                            agenda.on('ready', function() {
+                              agenda.every('15 minutes', 'fetch data');
+                              agenda.every('10 minutes', 'make recipe');
+                              agenda.start();
+                            });
+
                                 
                             return done(null, user);
                         });

@@ -70,8 +70,9 @@ var fetchGoogleFit = function (userid) {
   User.findOne({userId:userid}, function(err, user) {
     if (err) throw err;
 
+    console.log("HERE");
     var now = Date.now();
-    for( i = 0; i < 90 ; ++i ){
+    for( i = 0; i < 90 ; ++i ) {
       fitnessAPI.fetchData(user, now);
       now = new Date(now);
       now.setDate(new Date(now).getDate() - 1 );

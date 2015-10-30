@@ -48,7 +48,7 @@ app.use('/addfriend', addfriend);
 var agenda = new Agenda({db: {address: "mongodb://localhost/wecare"}});
 agenda.define('fetch data', function(job, done) {
   console.log(1);
-//  jobs.fetchGoogleFit("fangzhzh@gmail.com");
+  //jobs.fetchGoogleFit("amulyakhare@gmail.com");
   done(); /// <------- MUST!!!
 });
 
@@ -60,7 +60,7 @@ agenda.define('make recipe', function (job, done) {
 
 agenda.on('ready', function() {
   agenda.every('15 minutes', 'fetch data');
-  agenda.every('10 minutes', 'make recipe');
+  agenda.every('3 seconds', 'make recipe');
   agenda.start();
 });
 
