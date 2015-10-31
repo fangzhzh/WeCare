@@ -191,7 +191,7 @@ module.exports = function(passport) {
                                 return done(err);
                             }
 
-                          jobs.fetchGoogleFit(newUser.userId);
+                          jobs.fetchGoogleFit(user.userId);
                           jobs.makeRecipe(user.userId);
                           return done(null, user);
                         });

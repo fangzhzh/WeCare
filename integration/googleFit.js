@@ -34,7 +34,7 @@ FitnessAPI.prototype.fetchData = function(user, date) {
   // Example: Get user's Profile information
 
   fitness.users.dataSources.list({ userId:'me', auth:client }, function(err, reply) {
-      if(err) { console.log(err); }
+      if(err) { console.log(err); return;}
 
       // Do whatever you need with the API's reply.
       reply.dataSource.forEach(function(entry) {
