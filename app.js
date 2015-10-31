@@ -67,15 +67,15 @@ agenda.define('make recipe', function (job, done) {
     //console.log(users);
     users.forEach(function (user) {
       console.log(user);
-      //jobs.makeRecipe(user.userId);
+      jobs.makeRecipe(user.userId);
     });
   });
   done(); /// <------- MUST!!!
 });
 
 agenda.on('ready', function() {
-  agenda.every('3 seconds', 'fetch data');
-  agenda.every('3 seconds', 'make recipe');
+  agenda.every('5 minutes', 'fetch data');
+  agenda.every('10 minutes', 'make recipe');
   agenda.start();
 });
 
