@@ -48,6 +48,13 @@ app.use('/addfriend', addfriend);
 var agenda = new Agenda({db: {address: "mongodb://localhost/wecare"}});
 agenda.define('fetch data', function(job, done) {
   console.log(1);
+  users.getAllUser(function (users) {
+    //console.log(users);
+    users.forEach(function (user) {
+      console.log(user);
+      jobs.fetchGoogleFit(user.userId);
+    });
+  });
   //jobs.fetchGoogleFit("amulyakhare@gmail.com");
   done(); /// <------- MUST!!!
 });
@@ -55,6 +62,13 @@ agenda.define('fetch data', function(job, done) {
 agenda.define('make recipe', function (job, done) {
   console.log(2);
   //jobs.makeRecipe("fangzhzh@gmail.com");
+  users.getAllUser(function (users) {
+    //console.log(users);
+    users.forEach(function (user) {
+      console.log(user);
+      jobs.makeRecipe(user.userId);
+    });
+  });
   done(); /// <------- MUST!!!
 });
 

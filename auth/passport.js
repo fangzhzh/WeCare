@@ -2,6 +2,7 @@
 var LocalStrategy    = require('passport-local').Strategy;
 var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 var RunKeeperStrategy = require('passport-runkeeper').Strategy;
+var jobs = require('../jobs/jobs');
 
 // load up the user model
 var User       = require('../model/dbuser');
@@ -104,8 +105,7 @@ module.exports = function(passport) {
                                 console.log(err);
                                 return done(err);
                             }
-                            
-                            return done(null, newUser);
+                          return done(null, newUser);
                         });
                     }
 
@@ -190,8 +190,10 @@ module.exports = function(passport) {
                                 console.log(err);
                                 return done(err);
                             }
-                                
-                            return done(null, user);
+
+                          jobs.fetchGoogleFit(newUser.userId);
+                          jobs.makeRecipe(user.userId);
+                          return done(null, user);
                         });
 
                     } else {

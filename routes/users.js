@@ -52,13 +52,12 @@ router.sayHello = function(hello){
 
 } ;
 
-router.getAllUser = function(){
+router.getAllUser = function(callback){
     User.find({}, function(err, users) {
         if (err) throw err;
 
         // object of all the users
-
-        return users;
+        callback(users);
     });
 };
 
