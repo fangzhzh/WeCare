@@ -9,18 +9,6 @@ var GCM = require('../jobs/gcm');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	User.findOne({userId:'fangzhzh@gmail.com'}, function(err, user) {
-        if (err) throw err;
-
-        var now = Date.now();
-        for( i = 0; i < 90 ; ++i ){
-          fitnessAPI.fetchData(user, now);
-          now = new Date(now);
-          now.setDate(new Date(now).getDate() - 1 );
-        }
-        return user;
-    });
-	
 	res.render('signup', { title: 'Login' });
 });
 
