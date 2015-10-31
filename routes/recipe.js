@@ -37,6 +37,7 @@ var getRecipe = function (queryString, res) {
 };
 
 var saveRecipe = function (recipe, res) {
+  console.log(__filename + ": " + __function__line);
   Recipe.findOneAndUpdate({userId:recipe.userid,
     recommendation:recipe.recommendation,
     dataTime:recipe.dataTime
@@ -45,10 +46,11 @@ var saveRecipe = function (recipe, res) {
       {upsert:true},
       function (err, object) {
         if(err) {
-          if(res)      res.send(500);
+          console.warn(err);
+          if(res)      res.sendStatus(500);
           return "";
         }
-        if(res) res.send(200);
+        if(res) res.sendStatus(200);
       }
   );
 

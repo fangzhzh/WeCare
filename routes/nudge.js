@@ -3,28 +3,44 @@
  */
 var express = require('express');
 var router = express.Router();
-var DBArticle = require('../model/article');
-var Article = require('../model/dbarticle');
+var DBArticle = require('../model/dbarticle');
+var recipe = require('../routes/recipe');
 
 router.post('/', function(req, res, next) {
-  nudge({userId:req.query.userid,
+  console.log(__filename + ": " + __function__line);
+  nudgeBuddy({userId:req.query.userid,
     buddyId:req.query.buddyid,
     message: req.query.message,
+    queryString: "nudge",
+    type: 1,
     url: req.query.url
   }, res);
 });
 
-var nudge = function(recipe, res, callback) {
-  var newArticle = new Article();
+var nudgeBuddy = function(nudge, res, callback) {
+  console.log(__filename + ": " + __function__line);
+  DBArticle.findOneAndUpdate(
+      {queryString: nudge.queryString, link: nudge.url},
+      nudge,
+      {upsert:true, 'new': true},
+      function (err, newArticle) {
+        console.log(__filename + ": " + __function__line);
+        if(err) {
+          console.log(err);
+          if(res)      res.sendStatus(500);
+          return "";
+        }
+        console.log(__filename + ": " + __function__line);
+        console.log(newArticle);
+        var start = new Date();
+        start.setHours(0,0,0,0);
 
-  Article.saveArticle({
-    thumbUrl: recipe.url,
-        title: recipe.title,
-        summary: recipe.message,
-        link: recipe.url,
-        displayLink: entry.displayLink,
-        queryString: query
-  });
+        recipe.saveRecipe({"userid":nudge.userId, "recommendation":newArticle._id, dataTime: start},
+        res);
+      }
+  );
+  // save recipe
+
 };
 
 module.exports = router;

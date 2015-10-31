@@ -16,6 +16,7 @@ var article = require('./routes/article');
 var activity = require('./routes/activity');
 var recipe = require('./routes/recipe');
 var addfriend = require('./routes/addfriend');
+var nudge = require('./routes/nudge');
 var jobs = require('./jobs/jobs');
 var Agenda = require('agenda');
 
@@ -44,6 +45,7 @@ app.use('/article', article);
 app.use('/activity', activity);
 app.use('/recommend', recipe);
 app.use('/addfriend', addfriend);
+app.use('/nudge', nudge);
 
 var agenda = new Agenda({db: {address: "mongodb://localhost/wecare"}});
 agenda.define('fetch data', function(job, done) {
