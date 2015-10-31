@@ -5,6 +5,7 @@ require('../auth/passport')(passport);
 var fitness = require('../integration/googleFit.js');
 var fitnessAPI = new fitness();
 var User = require('../model/dbuser');
+var GCM = require('../jobs/gcm');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -29,5 +30,16 @@ router.post('/', passport.authenticate('local-signup', {
 	failureRedirect : '/signup', // redirect back to the signup page if there is an error
 	failureFlash : true // allow flash messages
 }));
+
+router.post('/gcm', function(req, res, next) {
+	var token = req.body.gcmtoken;
+	var userId = req.body.userId;
+	
+});
+
+router.get('/gcm', function(req, res, next) {
+	GCM.sendPush("amulyakhare@gmail.com")
+	res.render('signup', { title: 'Login' });
+});
 
 module.exports = router;

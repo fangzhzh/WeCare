@@ -52,7 +52,7 @@ agenda.define('fetch data', function(job, done) {
     //console.log(users);
     users.forEach(function (user) {
       console.log(user);
-      jobs.fetchGoogleFit(user.userId);
+      //jobs.fetchGoogleFit(user.userId);
     });
   });
   //jobs.fetchGoogleFit("amulyakhare@gmail.com");
@@ -67,7 +67,7 @@ agenda.define('make recipe', function (job, done) {
     //console.log(users);
     users.forEach(function (user) {
       console.log(user);
-      jobs.makeRecipe(user.userId);
+      //jobs.makeRecipe(user.userId);
     });
   });
   done(); /// <------- MUST!!!
