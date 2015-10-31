@@ -190,25 +190,6 @@ module.exports = function(passport) {
                                 console.log(err);
                                 return done(err);
                             }
-
-                            agenda.define('fetch data' + user.userId, function(job, done) {
-                              console.log(1);
-                                jobs.fetchGoogleFit(user.userId);
-                              done(); /// <------- MUST!!!
-                            });
-
-                            agenda.define('make recipe' + user.userId, function (job, done) {
-                              console.log(2);
-                                jobs.makeRecipe(user.userId);
-                              done(); /// <------- MUST!!!
-                            });
-
-                            agenda.on('ready', function() {
-                              agenda.every('15 minutes', 'fetch data');
-                              agenda.every('10 minutes', 'make recipe');
-                              agenda.start();
-                            });
-
                                 
                             return done(null, user);
                         });
