@@ -35,16 +35,33 @@ var makeRecipe = function (userid) {
     var counter = 0;
     for(i = activities.length-1; i >=0; --i) {
       var ex = activities[i];
-      activity = (activity +ex.activity?parseFloat(ex.activity):0.8)/2;
-      steps = (steps +ex.steps?parseInt(ex.steps):5000)/2;
-      calorie = (calorie +ex.calorie?(parseFloat(ex.calorie))/20:200)/2;
+      if(ex.activity) {
+        activity = activity + parseFloat(ex.activity);
+      } else {
+        activity = activity + 0.8;
+      }
+      if(ex.steps) {
+        steps = steps + parseInt(ex.steps);
+      } else {
+        steps = steps + 5000;
+      }
+      if(ex.calorie) {
+        calorie = calorie + parseFloat(ex.calorie);
+      } else {
+        calorie = calorie + 4000;
+      }
+      console.log("-------->>>>", steps, calorie);
       counter++;
       if(counter >= 6) {
         break;
       }
     }
+    var avg_activity = activity / counter;
+    var avg_steps = steps / counter;
+    var avg_calorie = (calorie / counter) / 20;
+    console.log("-------->>>>", avg_steps, avg_calorie);
 
-    predictMakeRecipe(userid, [age, gender, activity, steps, calorie]);
+    predictMakeRecipe(userid, [age, gender, avg_activity, avg_steps, avg_calorie]);
   });
 };
 
