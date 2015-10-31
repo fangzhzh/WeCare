@@ -32,7 +32,7 @@ var saveFriend = function(user, res, callback) {
               console.log(__filename + ": " + __function__line);
               if (err) {
                 console.log(err);
-                if (res) res.sendStatus(500)
+                if (res) res.sendStatus(500);
                 if (callback) callback(err);
                 return;
               }

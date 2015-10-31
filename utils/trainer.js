@@ -115,7 +115,7 @@ var clf = new svm.CSVC({
 	reduce: true, // default value
     	retainedVariance: 0.95,              
     	cacheSize: 20000});
-console.log("train")
+console.log("train");
 clf.train(dataset, function(){
   var model = svm.getModel(); // Note: SVM#getModel requires svm to be trained
   fs.writeFileSync('./model.json', JSON.stringify(model));  // persist the model
@@ -127,7 +127,7 @@ clf.train(dataset).progress(function(progress){
     }).spread(function (model, report) {
         //console.log('training report: %s\nPredictions:', so(report));
         fs.writeFileSync('./model.json', JSON.stringify(model));  // persist the model
-        console.log("write done")
+        console.log("write done");
         console.log('done.');
 
 	test.forEach(function(ex){

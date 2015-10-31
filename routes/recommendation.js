@@ -21,7 +21,7 @@ var getAllRecommendation = function (res) {
       console.log(__filename + ": " + __function__line);
       res.send(recommendations);
     })
-}
+};
 
 var getRecommendation = function (userid, res) {
     Recommendatioin.find({userId:userid}, function (err, recommendations ) {

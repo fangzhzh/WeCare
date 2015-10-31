@@ -160,7 +160,7 @@ module.exports = function(passport) {
         process.nextTick(function() {
             
             // find and assign user from cookie.
-            var list = {}
+            var list = {};
             if(req.headers.cookie) {
                 rc = req.headers.cookie;
                 rc && rc.split(';').forEach(function( cookie ) {

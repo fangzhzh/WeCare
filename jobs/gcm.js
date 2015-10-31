@@ -9,8 +9,8 @@ var gcm = require('node-gcm');
 var sender = new gcm.Sender('AIzaSyAEftk9ZuLdOwuyH50le50o8pCkjGVWZeQ');
 
 
-var sendPush = function (user) {
-	var regTokens = [user.pushToken];
+var sendPush = function (gcmToken) {
+	var regTokens = [gcmToken];
 
 	var message = new gcm.Message();
 
@@ -18,7 +18,7 @@ var sendPush = function (user) {
 	message.addNotification('title', 'Nudge');
 	message.addNotification('body', 'Your buddy has nudged you.');
 
-	sender.send(message, { registrationTokens: registrationTokens }, function (err, result) {
+	sender.send(message, { registrationIds: regTokens }, function (err, result) {
 	  if(err) console.error(err);
 	  else    console.log(result);
 	});

@@ -33,38 +33,40 @@ router.post('/', passport.authenticate('local-signup', {
 
 router.post('/gcm', function(req, res, next) {
 	var token = req.body.gcmtoken;
-	var userId = req.body.userId;
+	var userId = req.body.userid;
+  console.log(req.body);
+  console.log(req.params);
+  console.log(req.query);
   User.findOneAndUpdate(
       {userId:userId},
       {userId:userId, gcmToken:token},
+      {upsert:false},
       function(err, user) {
         if(err) {
           console.log(err);
           if(res) res.sendStatus(500);
-          if(callback) callback(err);
           return;
         }
+        console.log(user);
         if (res) res.sendStatus(200);
-        if (callback) callback(user);
       }
   );
 
 	
 });
 
-router.get('/gcm', function(req, res, next) {
-  var userId = req.body.userId;
+router.post('/gcma', function(req, res, next) {
+  var userId = req.body.userid;
   User.findOne({userId: userId}, function(err, user) {
     if(err) {
       console.log(err);
       if(res) res.sendStatus(500);
-      if(callback) callback(err);
       return;
     }
 
     // object of all the users
     console.log(user);
-    GCM.sendPush(user.gcmToken)
+    GCM.sendPush(user.gcmToken);
     res.sendStatus(200);
     res.render('signup', { title: 'Login' });
   });

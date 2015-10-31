@@ -21,6 +21,7 @@ var userSchema = new Schema({
     password: { type: String },
     createdTime: { type: Date, default: Date.now },
     updatedTime: { type: Date, default: Date.now },
+    gcmToken: String,
     facebook         : {
         id           : String,
         token        : String,
