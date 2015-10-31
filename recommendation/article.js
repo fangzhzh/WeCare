@@ -15,37 +15,37 @@ function ArticleAPI() {
 
 ArticleAPI.prototype.search = function(query) {
 	// Example: Get user's Profile information
-	search.cse.list({
+	// search.cse.list({
 		
-		key: 'AIzaSyBwrjpU0ROGuOSlKTNkxJ3eAlbZX3HXUtQ',
-		cx: '017493724765068128262:wp65txxlx00',
-		q:query
+	// 	key: 'AIzaSyBm6Al4EfX5LflmIeQmsLDBy_-UXvxJ2HU',
+	// 	cx: '003656702939349543987:l_hpmdvght0',
+	// 	q:query
 
-	}, function(err, reply) {
-		if(err) { console.log(err); }
+	// }, function(err, reply) {
+	// 	if(err) { console.log(err); }
 
-		// Do whatever you need with the API's reply.
-		reply.items.forEach(function(entry) {
-			var imageLink = "";
-			if(entry.pagemap) {
-				if(entry.pagemap.cse_image) {
-					if(entry.pagemap.cse_image[0]) {
-						if(entry.pagemap.cse_image[0].src) {
-							imageLink = entry.pagemap.cse_image[0].src;
-						}
-					}
-				}
-			}
-			articleRouter.saveArticle({
-				thumbUrl: imageLink,
-				title: entry.title,
-				summary: entry.snippet,
-				link: entry.link,
-				displayLink: entry.displayLink,
-				queryString: query
-			});
-		});
-	});
+	// 	// Do whatever you need with the API's reply.
+	// 	reply.items.forEach(function(entry) {
+	// 		var imageLink = "";
+	// 		if(entry.pagemap) {
+	// 			if(entry.pagemap.cse_image) {
+	// 				if(entry.pagemap.cse_image[0]) {
+	// 					if(entry.pagemap.cse_image[0].src) {
+	// 						imageLink = entry.pagemap.cse_image[0].src;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 		articleRouter.saveArticle({
+	// 			thumbUrl: imageLink,
+	// 			title: entry.title,
+	// 			summary: entry.snippet,
+	// 			link: entry.link,
+	// 			displayLink: entry.displayLink,
+	// 			queryString: query
+	// 		});
+	// 	});
+	// });
 };
 
 ArticleAPI.prototype.searchLocal = function(tag, callback) {

@@ -7,16 +7,15 @@ var utils = require('../utils/utils');
 var Sleep = require('../model/dbsleep');
 var faker = require('faker');
 
+var articleRecommend = require('../recommendation/article.js');
+var articleAPI = new articleRecommend();
+
 /* GET sleep listing. */
 router.get('/', function(req, res, next) {
-    Sleep.find({}, function(err, sleeps) {
-        if (err) throw err;
+    
+    articleAPI.search('pro exercise advice');
 
-        // object of all the users
-        console.log(__function +":"+__line);
-        getAllSleep();
-        res.send(sleeps);
-    });
+
 });
 
 router.get('/:userid', function(req, res, next) {
