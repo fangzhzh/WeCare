@@ -38,7 +38,7 @@ var saveArticle = function (article, res) {
       }
       //return next(err);
     }
-    console.log(__function__line+ article +  " save success");
+    console.log(__filename + ": " + __function__line+ article +  " save success");
     if(res) {
       res.send(200);
 	}

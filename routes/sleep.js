@@ -47,7 +47,7 @@ router.delete('/:userid',function(req, res, next){
 })});
 
 var getAllSleep = function() {
-    console.log(__function__line);
+    console.log(__filename + ": " + __function__line);
 };
 
 var saveSleep = function(sleep) {

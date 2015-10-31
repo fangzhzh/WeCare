@@ -18,14 +18,14 @@ router.get('/:userid', function(req, res, next) {
 
 var getAllRecommendation = function (res) {
     Recommendatioin.find({}, function (err, recommendations) {
-      console.log(__function__line);
+      console.log(__filename + ": " + __function__line);
       res.send(recommendations);
     })
 }
 
 var getRecommendation = function (userid, res) {
     Recommendatioin.find({userId:userid}, function (err, recommendations ) {
-        console.log(__function__line);
+        console.log(__filename + ": " + __function__line);
         res.send(recommendations);
     })
 };

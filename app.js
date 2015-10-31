@@ -59,6 +59,7 @@ agenda.define('fetch data', function(job, done) {
   done(); /// <------- MUST!!!
 });
 
+
 agenda.define('make recipe', function (job, done) {
   console.log(2);
   //jobs.makeRecipe("fangzhzh@gmail.com");
@@ -66,14 +67,14 @@ agenda.define('make recipe', function (job, done) {
     //console.log(users);
     users.forEach(function (user) {
       console.log(user);
-      jobs.makeRecipe(user.userId);
+      //jobs.makeRecipe(user.userId);
     });
   });
   done(); /// <------- MUST!!!
 });
 
 agenda.on('ready', function() {
-  agenda.every('15 minutes', 'fetch data');
+  agenda.every('3 seconds', 'fetch data');
   agenda.every('3 seconds', 'make recipe');
   agenda.start();
 });

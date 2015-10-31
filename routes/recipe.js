@@ -8,7 +8,7 @@ var Recipe = require('../model/dbrecipe');
 
 
 router.get('/', function(req, res, next) {
-  console.log(__function__line);
+  console.log(__filename + ": " + __function__line);
   Recipe.find({}, function(err, recipes) {
     if (err) throw err;
     // object of all the users
@@ -22,7 +22,7 @@ router.get('/:userid', function(req, res, next) {
 });
 
 var getRecipe = function (queryString, res) {
-  console.log(__function__line);
+  console.log(__filename + ": " + __function__line);
   Recipe.find(queryString).populate('recommendation').exec( function(err, recipe) {
     if (err) {
       console.log(err);
@@ -59,7 +59,7 @@ var saveRecipe = function (recipe, res) {
   //    console.log(err);
   //    return err;
   //  }
-  //  console.log(__function__line+ newRecipe +  " save success");
+  //  console.log(__filename + ": " + __function__line+ newRecipe +  " save success");
   //  if(res)  res.send(200);
   //});
 

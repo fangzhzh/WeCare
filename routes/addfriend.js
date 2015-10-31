@@ -11,13 +11,13 @@ router.post('/', function(req, res, next) {
 
 
 var saveFriend = function(user, res, callback) {
-  console.log(__function__line);
+  console.log(__filename + ": " + __function__line);
   User.findOneAndUpdate(
       {userId:user.userId},
       {},
       //{$addToSet:{carer:user.buddyId}},
       function(err, me){
-        console.log(__function__line);
+        console.log(__filename + ": " + __function__line);
         if(err) {
           console.log(err);
           if(res) res.sendStatus(500)
@@ -29,7 +29,7 @@ var saveFriend = function(user, res, callback) {
             {},
             //{$addToSet:{careGiver:user.userId}},
             function(err, buddy) {
-              console.log(__function__line);
+              console.log(__filename + ": " + __function__line);
               if (err) {
                 console.log(err);
                 if (res) res.sendStatus(500)

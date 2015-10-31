@@ -20,7 +20,7 @@ router.get('/:userid', function(req, res, next) {
 });
 
 var getAllActivity = function (res) {
-  console.log(__function__line);
+  console.log(__filename + ": " + __function__line);
   Activity.find({}, function (err, activities) {
     if(err) {
       console.log(err);
@@ -32,7 +32,7 @@ var getAllActivity = function (res) {
 };
 
 var getActivity = function (queryString, callback) {
-  console.log(__function__line);
+  console.log(__filename + ": " + __function__line);
   console.log(queryString);
   Activity.find(queryString).sort({dataTime:1}).populate('user', 'age, gender').exec(function (err, activities) {
     if(err) {
@@ -41,7 +41,7 @@ var getActivity = function (queryString, callback) {
       callback(err);
     }
 
-    console.log(__function__line);
+    console.log(__filename + ": " + __function__line);
     if(callback) callback(null, activities);
   });
 
@@ -57,7 +57,7 @@ var getActivity = function (queryString, callback) {
 
 
 var saveActivity = function (activity, res) {
-  console.log(__function__line);
+  console.log(__filename + ": " + __function__line);
 
   Activity.findOneAndUpdate({userId:activity.userId, dataTime:activity.dataTime},
       activity,
