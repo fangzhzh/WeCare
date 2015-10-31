@@ -34,12 +34,41 @@ router.post('/', passport.authenticate('local-signup', {
 router.post('/gcm', function(req, res, next) {
 	var token = req.body.gcmtoken;
 	var userId = req.body.userId;
+  User.findOneAndUpdate(
+      {userId:userId},
+      {userId:userId, gcmToken:token},
+      function(err, user) {
+        if(err) {
+          console.log(err);
+          if(res) res.sendStatus(500);
+          if(callback) callback(err);
+          return;
+        }
+        if (res) res.sendStatus(200);
+        if (callback) callback(user);
+      }
+  );
+
 	
 });
 
 router.get('/gcm', function(req, res, next) {
-	GCM.sendPush("amulyakhare@gmail.com")
-	res.render('signup', { title: 'Login' });
+  var userId = req.body.userId;
+  User.findOne({userId: userId}, function(err, user) {
+    if(err) {
+      console.log(err);
+      if(res) res.sendStatus(500);
+      if(callback) callback(err);
+      return;
+    }
+
+    // object of all the users
+    console.log(user);
+    GCM.sendPush(user.gcmToken)
+    res.sendStatus(200);
+    res.render('signup', { title: 'Login' });
+  });
+
 });
 
 module.exports = router;
