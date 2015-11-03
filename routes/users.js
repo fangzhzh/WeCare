@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:userid', function(req, res, next) {
-  User.findOne({userId: req.params.userid}, function(err, users) {
+  User.findOne({userId: req.params.userid}).populate("carer").exec( function(err, users) {
     if (err) throw err;
 
     // object of all the users

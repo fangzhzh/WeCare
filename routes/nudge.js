@@ -8,12 +8,12 @@ var recipe = require('../routes/recipe');
 
 router.post('/', function(req, res, next) {
   console.log(__filename + ": " + __function__line);
-  nudgeBuddy({userId:req.query.userid,
-    buddyId:req.query.buddyid,
-    message: req.query.message,
+  nudgeBuddy({userId:req.body.userid,
+    buddyId:req.body.buddyid,
+    message: req.body.message,
     queryString: "nudge",
     type: 1,
-    url: req.query.url
+    url: req.body.url
   }, res);
 });
 
@@ -35,7 +35,8 @@ var nudgeBuddy = function(nudge, res, callback) {
         var start = new Date();
         start.setHours(0,0,0,0);
 
-        recipe.saveRecipe({"userid":nudge.userId, "recommendation":newArticle._id, dataTime: start},
+        console.log(nudge);
+        recipe.saveRecipe({"userid":nudge.buddyId, "recommendation":newArticle._id, dataTime: start},
         res);
       }
   );

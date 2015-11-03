@@ -5,6 +5,8 @@
 var express  =require('express');
 var router = express.Router();
 var Recipe = require('../model/dbrecipe');
+var gcm = require('../jobs/gcm');
+var User = require('../model/dbuser');
 
 
 router.get('/', function(req, res, next) {
@@ -47,9 +49,17 @@ var saveRecipe = function (recipe, res) {
       function (err, object) {
         if(err) {
           console.warn(err);
-          if(res)      res.sendStatus(500);
+          if(res)      res.sendStatus(200);
           return "";
         }
+        console.log("userId:" + recipe.userid);
+        User.findOne({userId: recipe.userid}, function(err, user) {
+          if (err) throw err;
+
+          console.log(user);
+          // object of all the users
+          gcm.sendPush(user.gcmToken);
+        });
         if(res) res.sendStatus(200);
       }
   );

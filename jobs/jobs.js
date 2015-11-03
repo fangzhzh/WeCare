@@ -17,7 +17,9 @@ var articleAPI = new articleRecommend();
 var fitnessAPI = new fitness();
 
 var makeRecipe = function (userid) {
-  activity.getActivity(userid, function (err, activities) {
+  activity.getActivity({userId:userid}, function (err, activities) {
+      console.log(userid + " =====================>");
+      console.log(activities[0] + " =====================>");
     if(err) {
       console.log(err);
       throw err;
@@ -48,7 +50,7 @@ var makeRecipe = function (userid) {
       if(ex.calorie) {
         calorie = calorie + parseFloat(ex.calorie);
       } else {
-        calorie = calorie + 4000;
+        calorie = calorie + 2000;
       }
       console.log("-------->>>>", steps, calorie);
       counter++;
@@ -58,7 +60,7 @@ var makeRecipe = function (userid) {
     }
     var avg_activity = activity / counter;
     var avg_steps = steps / counter;
-    var avg_calorie = (calorie / counter) / 20;
+    var avg_calorie = (avg_steps / 5000) * 200 ;
     console.log("-------->>>>", avg_steps, avg_calorie);
 
     predictMakeRecipe(userid, [age, gender, avg_activity, avg_steps, avg_calorie]);
@@ -108,7 +110,7 @@ var fetchGoogleFit = function (userid) {
     console.log(__filename + ": " + __function__line);
 
     var now = Date.now();
-    lastFitDataDate = now;
+    lastFitDataDate = 0;
     console.log("now: " + now + ", lastFitDataDate:" + lastFitDataDate + " , timeWindow:" + timeWindow);
     if(now > lastFitDataDate + timeWindow) {
       for( i = 0; i < 30 ; ++i ) {

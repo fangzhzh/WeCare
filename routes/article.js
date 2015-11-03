@@ -60,7 +60,7 @@ var shopeeTag2QueryString = {
 };
 
 router.tag2QueryString = tag2QueryString;
-router.shopeeTag2QueryString = tag2QueryString;
+router.shopeeTag2QueryString = shopeeTag2QueryString;
 router.getArticle = getArticle;
 router.saveArticle = saveArticle;
 module.exports = router;
